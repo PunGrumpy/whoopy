@@ -1,0 +1,14 @@
+{
+  "addons": ["ultracite", "turborepo"],
+  "createdAt": "2026-06-08T07:22:34.297Z",
+  "frontend": "next",
+  "generator": "verno",
+  "generatorVersion": "0.1.6",
+  "packageManager": "bun",
+  "packages": ["typescript-config"],
+  "projectName": "whoopy",
+  "studio": "Verno Studio",
+  "ui": "none",
+  "ultraciteFrameworks": ["react", "next"],
+  "ultraciteLinter": "oxlint"
+}
