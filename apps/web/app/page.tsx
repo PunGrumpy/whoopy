@@ -43,6 +43,7 @@ const Home = () => (
       <Image
         className="size-full object-cover blur-[0.7px] saturate-[1.5]"
         alt="A sweet dreams"
+        loading="eager"
         {...HomeImage}
       />
     </div>
