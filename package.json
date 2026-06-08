@@ -14,6 +14,7 @@
     "fix": "ultracite fix"
   },
   "devDependencies": {
+    "@typescript/native-preview": "^7.0.0-dev.20260427.1",
     "oxfmt": "^0.53.0",
     "oxlint": "^1.68.0",
     "turbo": "^2.9.0",
