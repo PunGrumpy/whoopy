@@ -33,7 +33,7 @@ const Home = () => (
           interactive, premium visualizations.
         </p>
 
-        <Button className="rounded-full font-normal text-base">
+        <Button className="h-12 rounded-full font-normal text-base">
           Get Started
         </Button>
       </div>
