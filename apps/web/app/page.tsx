@@ -1,27 +1,29 @@
+import Image from "next/image";
+
+import { WhoopMark } from "@/components/whoop-mark";
+
+import HomeImage from "./home.webp";
+
 const Home = () => (
-  <main className="mx-auto flex min-h-dvh w-full max-w-2xl flex-col px-6 py-24 sm:py-32">
-    <section className="grid gap-24">
-      <header>
-        <h1 className="font-serif text-3xl font-normal tracking-tight text-foreground sm:text-5xl">
-          whoopy
-        </h1>
-        <p className="mt-1 text-muted-foreground">A Verno Studio starter.</p>
-      </header>
-      <div className="grid gap-5 text-pretty text-sm leading-7 text-muted-foreground sm:text-base">
-        <p>
-          A Verno Studio starter, shaped for taste, systems, and the first
-          commit—so the surface is considered before the feature list runs long.
-        </p>
-        <p>
-          Edit{" "}
-          <code className="rounded border border-border bg-muted px-1.5 py-0.5 font-mono text-sm text-foreground">
-            app/page.tsx
-          </code>{" "}
-          to get started.
-        </p>
+  <section className="grid w-full gap-8 px-6 py-6 sm:px-12 sm:py-12 min-[1200px]:min-h-screen min-[1200px]:grid-cols-[531px_minmax(0,1fr)] min-[1200px]:items-stretch min-[1200px]:gap-[clamp(3rem,10.76vw,155px)]">
+    <div className="flex flex-col gap-10 min-[1200px]:min-h-[calc(100svh-6rem)] min-[1200px]:justify-between">
+      <WhoopMark className="size-8 md:size-12 shrink-0 text-background" />
+
+      <div className="grid max-w-xl gap-[26px]">
+        <p>Welcome to Whoopy</p>
+
+        <p>Whoopy is a interactive dashboard for WHOOP data via API.</p>
       </div>
-    </section>
-  </main>
+    </div>
+
+    <div className="relative aspect-658/804 w-full overflow-hidden rounded-3xl bg-background min-[1200px]:aspect-auto min-[1200px]:h-[calc(100svh-6rem)] min-[1200px]:min-h-0">
+      <Image
+        className="size-full object-cover blur-[0.7px] saturate-[1.5]"
+        alt="A sweet dreams"
+        {...HomeImage}
+      />
+    </div>
+  </section>
 );
 
 export default Home;

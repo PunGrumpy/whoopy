@@ -2,9 +2,13 @@ import "./globals.css";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
-const title = "whoopy";
+import { fonts } from "@/lib/fonts/index";
+import { cn } from "@/lib/utils";
 
-export const metadata: Metadata = { description: "Next.js app", title };
+const title = "Whoopy";
+const description = "Whoop visualise your data in a fun way";
+
+export const metadata: Metadata = { description, title };
 
 interface RootLayoutProps {
   readonly children: ReactNode;
@@ -12,7 +16,9 @@ interface RootLayoutProps {
 
 const RootLayout = ({ children }: RootLayoutProps) => (
   <html lang="en" suppressHydrationWarning>
-    <body className="min-h-dvh antialiased">{children}</body>
+    <body data-scroll-behavior="smooth" className={cn("scroll-smooth", fonts)}>
+      <main className="min-h-dvh text-lg tracking-[-0.01em]">{children}</main>
+    </body>
   </html>
 );
 
