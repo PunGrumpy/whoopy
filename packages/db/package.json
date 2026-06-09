@@ -8,6 +8,10 @@
       "import": "./src/index.ts",
       "default": "./src/index.ts"
     },
+    "./queries": {
+      "import": "./src/queries.ts",
+      "default": "./src/queries.ts"
+    },
     "./schema": {
       "import": "./src/schema.ts",
       "default": "./src/schema.ts"
