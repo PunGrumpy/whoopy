@@ -7,6 +7,10 @@
     ".": {
       "import": "./src/index.ts",
       "default": "./src/index.ts"
+    },
+    "./schema": {
+      "import": "./src/schema.ts",
+      "default": "./src/schema.ts"
     }
   },
   "scripts": {
