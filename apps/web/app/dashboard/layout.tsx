@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 import { Menu } from "@/components/menu";
+import { TimeRangeProvider } from "@/components/time-range/context";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
 interface DashboardLayoutProps {
@@ -11,11 +12,13 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => (
   <SidebarProvider>
     <Menu />
     <SidebarInset>
-      <div className="flex flex-1 flex-col">
-        <div className="@container/main flex flex-1 flex-col gap-2">
-          <div className="flex flex-col">{children}</div>
+      <TimeRangeProvider>
+        <div className="flex flex-1 flex-col">
+          <div className="@container/main flex flex-1 flex-col gap-2">
+            <div className="flex flex-col">{children}</div>
+          </div>
         </div>
-      </div>
+      </TimeRangeProvider>
     </SidebarInset>
   </SidebarProvider>
 );
