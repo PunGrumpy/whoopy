@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 
@@ -33,7 +34,10 @@ const Home = () => (
           interactive, premium visualizations.
         </p>
 
-        <Button className="h-12 rounded-full font-normal text-base">
+        <Button
+          render={<Link href="/dashboard" />}
+          className="h-12 rounded-full font-normal text-base"
+        >
           Get Started
         </Button>
       </div>
