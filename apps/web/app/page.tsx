@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
+import { getSession } from "@/lib/session";
 
 import HomeImage from "./home.webp";
 
@@ -19,40 +20,44 @@ const WhoopMark = () => (
   </svg>
 );
 
-const Home = () => (
-  <section className="grid w-full gap-8 px-6 py-6 sm:px-12 sm:py-12 min-[1200px]:min-h-screen min-[1200px]:grid-cols-[531px_minmax(0,1fr)] min-[1200px]:items-stretch min-[1200px]:gap-[clamp(3rem,10.76vw,155px)]">
-    <div className="flex flex-col gap-10 min-[1200px]:min-h-[calc(100svh-6rem)] min-[1200px]:justify-between">
-      <h1 className="block shrink-0 uppercase">Whoopy</h1>
+const Home = async () => {
+  const session = await getSession();
 
-      <div className="grid max-w-xl gap-[26px]">
-        <p>Welcome to Whoopy</p>
+  return (
+    <section className="grid w-full gap-8 px-6 py-6 sm:px-12 sm:py-12 min-[1200px]:min-h-screen min-[1200px]:grid-cols-[531px_minmax(0,1fr)] min-[1200px]:items-stretch min-[1200px]:gap-[clamp(3rem,10.76vw,155px)]">
+      <div className="flex flex-col gap-10 min-[1200px]:min-h-[calc(100svh-6rem)] min-[1200px]:justify-between">
+        <h1 className="block shrink-0 uppercase">Whoopy</h1>
 
-        <p>
-          Whoopy is an interactive web dashboard for your <WhoopMark />
-          WHOOP health data. Track your sleep performance, recovery scores,
-          daily physiological strain, and exercise workouts over time with
-          interactive, premium visualizations.
-        </p>
+        <div className="grid max-w-xl gap-[26px]">
+          <p>Welcome to Whoopy</p>
 
-        <Button
-          render={<Link href="/dashboard" />}
-          className="h-12 rounded-full font-normal text-base"
-        >
-          Get Started
-        </Button>
+          <p>
+            Whoopy is an interactive web dashboard for your <WhoopMark />
+            WHOOP health data. Track your sleep performance, recovery scores,
+            daily physiological strain, and exercise workouts over time with
+            interactive, premium visualizations.
+          </p>
+
+          <Button
+            render={<Link href={session ? "/dashboard" : "/api/auth/login"} />}
+            className="h-12 rounded-full font-normal text-base"
+          >
+            {session ? "Go to Dashboard" : "Connect with WHOOP"}
+          </Button>
+        </div>
       </div>
-    </div>
 
-    <div className="relative aspect-658/804 w-full overflow-hidden rounded-3xl bg-background min-[1200px]:aspect-auto min-[1200px]:h-[calc(100svh-6rem)] min-[1200px]:min-h-0">
-      <Image
-        className="size-full object-cover blur-[0.7px] saturate-[1.5]"
-        alt="A sweet dreams"
-        loading="eager"
-        src={HomeImage}
-        placeholder="blur"
-      />
-    </div>
-  </section>
-);
+      <div className="relative aspect-658/804 w-full overflow-hidden rounded-3xl bg-background min-[1200px]:aspect-auto min-[1200px]:h-[calc(100svh-6rem)] min-[1200px]:min-h-0">
+        <Image
+          className="size-full object-cover blur-[0.7px] saturate-[1.5]"
+          alt="A sweet dreams"
+          loading="eager"
+          src={HomeImage}
+          placeholder="blur"
+        />
+      </div>
+    </section>
+  );
+};
 
 export default Home;
