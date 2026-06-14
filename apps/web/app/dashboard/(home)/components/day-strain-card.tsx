@@ -3,7 +3,7 @@
 import { useHomeMetrics } from "@/components/time-range/context";
 import { DAY_STRAIN_COLOR, round, STRAIN_GOAL } from "@/lib/charts/data";
 
-import { MetricCard } from "./metric";
+import { MetricCard } from "./metric-card";
 
 export const DayStrainCard = () => {
   const { dayStrainAvg } = useHomeMetrics();

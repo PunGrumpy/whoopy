@@ -22,6 +22,8 @@ interface InsightItemProps {
 
 export const InsightItem = ({ insight, onDismiss }: InsightItemProps) => {
   const Icon = CATEGORY_ICONS[insight.category];
+  const itemClassName =
+    "relative z-1 flex gap-3 rounded-xl p-4 pr-10 transition-colors hover:bg-muted/60";
 
   const content = (
     <>
@@ -50,21 +52,12 @@ export const InsightItem = ({ insight, onDismiss }: InsightItemProps) => {
 
   return (
     <div className="group relative">
-      <span
-        aria-hidden
-        className="pointer-events-none absolute inset-0 rounded-xl bg-muted/60 opacity-0 transition-opacity duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:opacity-100"
-      />
       {insight.href ? (
-        <Link
-          className="relative z-1 flex gap-3 rounded-xl p-4 pr-10"
-          href={insight.href}
-        >
+        <Link className={itemClassName} href={insight.href}>
           {content}
         </Link>
       ) : (
-        <div className="relative z-1 flex gap-3 rounded-xl p-4 pr-10">
-          {content}
-        </div>
+        <div className={itemClassName}>{content}</div>
       )}
       {onDismiss ? (
         <Button

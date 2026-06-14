@@ -80,16 +80,6 @@ export const durH = (r: { start: string; end: string }): number => {
   return round((e - s) / 3_600_000, 2);
 };
 
-export const scored = <
-  T extends { score_state: "SCORED" | "NOT_SCORED"; score?: number | null },
->(
-  records: T[]
-): T[] =>
-  records.filter(
-    (r) =>
-      r.score_state === "SCORED" && r.score !== null && r.score !== undefined
-  );
-
 export const safeAvg = (arr: number[]): number | null =>
   arr.length ? round(arr.reduce((a, b) => a + b, 0) / arr.length, 1) : null;
 
@@ -277,9 +267,3 @@ export const buildHomeDashboardMetrics = (
     workoutCount: filtered.workouts.length,
   };
 };
-
-export const getHomeDashboardMetrics = (
-  data: WhoopData,
-  range: TimeRange
-): HomeDashboardMetrics =>
-  buildHomeDashboardMetrics(filterWhoopDataByRange(data, range));

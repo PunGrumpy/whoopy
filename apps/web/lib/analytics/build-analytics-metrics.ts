@@ -26,7 +26,7 @@ import { RECOVERY_SERIES, SLEEP_SERIES } from "@/lib/charts/types";
 import type { WhoopData } from "@/lib/charts/types";
 
 const asChartData = <T extends object>(data: T[]): AnalyticsChartData =>
-  data as unknown as AnalyticsChartData;
+  data as AnalyticsChartData;
 
 interface DomainSnapshot {
   avgHrv: number | null;
@@ -115,19 +115,19 @@ const avgSeriesValue = (
 const getDomainChartSource = (
   snapshot: DomainSnapshot,
   domain: AnalyticsDomain
-): object[] => {
+): AnalyticsChartData => {
   switch (domain) {
     case "recovery": {
-      return snapshot.recoveryChart;
+      return asChartData(snapshot.recoveryChart);
     }
     case "sleep": {
-      return snapshot.sleepChart;
+      return asChartData(snapshot.sleepChart);
     }
     case "cycles": {
-      return snapshot.cycleChart;
+      return asChartData(snapshot.cycleChart);
     }
     case "workouts": {
-      return snapshot.workoutBarData;
+      return asChartData(snapshot.workoutBarData);
     }
     default: {
       const exhaustive: never = domain;
@@ -290,7 +290,7 @@ export const buildAnalyticsMetrics = (
   return {
     hasData: domainChart.length > 0,
     hero: {
-      chartData: asChartData(domainChart),
+      chartData: domainChart,
       chartType: config.hero.chartType,
       color: config.hero.color,
       seriesKey: config.hero.seriesKey,

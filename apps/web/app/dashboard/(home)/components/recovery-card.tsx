@@ -8,7 +8,7 @@ import { RecoveryChartTooltip } from "@/components/charts/tooltip";
 import { useHomeMetrics } from "@/components/time-range/context";
 import { LINE_PROPS, MINI_MARGIN, RECOVERY_LINES } from "@/lib/charts/data";
 
-import { MetricCard } from "./metric";
+import { MetricCard } from "./metric-card";
 
 export const RecoveryCard = () => {
   const { recoveryChart, recoveryScore } = useHomeMetrics();

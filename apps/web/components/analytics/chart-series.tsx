@@ -67,46 +67,62 @@ export const ChartSeries = ({
 
   let chart: ReactNode;
 
-  if (chartType === "bar") {
-    chart = (
-      <BarChart data={chartData} margin={margin}>
-        {tooltip}
-        <Bar
-          dataKey={seriesKey}
-          fill={color}
-          maxBarSize={isHero ? 16 : 8}
-          radius={[2, 2, 0, 0]}
-        />
-      </BarChart>
-    );
-  } else if (chartType === "area") {
-    chart = (
-      <AreaChart data={chartData} margin={margin}>
-        <defs>
-          <linearGradient id={gradientId} x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stopColor={color} stopOpacity={0.35} />
-            <stop offset="100%" stopColor={color} stopOpacity={0} />
-          </linearGradient>
-        </defs>
-        {xAxis}
-        {tooltip}
-        <Area
-          dataKey={seriesKey}
-          dot={endDot}
-          fill={`url(#${gradientId})`}
-          stroke={color}
-          {...LINE_PROPS}
-        />
-      </AreaChart>
-    );
-  } else {
-    chart = (
-      <LineChart data={chartData} margin={margin}>
-        {xAxis}
-        {tooltip}
-        <Line dataKey={seriesKey} dot={endDot} stroke={color} {...LINE_PROPS} />
-      </LineChart>
-    );
+  switch (chartType) {
+    case "bar": {
+      chart = (
+        <BarChart data={chartData} margin={margin}>
+          {tooltip}
+          <Bar
+            dataKey={seriesKey}
+            fill={color}
+            maxBarSize={isHero ? 16 : 8}
+            radius={[2, 2, 0, 0]}
+          />
+        </BarChart>
+      );
+      break;
+    }
+    case "area": {
+      chart = (
+        <AreaChart data={chartData} margin={margin}>
+          <defs>
+            <linearGradient id={gradientId} x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stopColor={color} stopOpacity={0.35} />
+              <stop offset="100%" stopColor={color} stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          {xAxis}
+          {tooltip}
+          <Area
+            dataKey={seriesKey}
+            dot={endDot}
+            fill={`url(#${gradientId})`}
+            stroke={color}
+            {...LINE_PROPS}
+          />
+        </AreaChart>
+      );
+      break;
+    }
+    case "line": {
+      chart = (
+        <LineChart data={chartData} margin={margin}>
+          {xAxis}
+          {tooltip}
+          <Line
+            dataKey={seriesKey}
+            dot={endDot}
+            stroke={color}
+            {...LINE_PROPS}
+          />
+        </LineChart>
+      );
+      break;
+    }
+    default: {
+      const exhaustive: never = chartType;
+      return exhaustive;
+    }
   }
 
   if (isHero) {

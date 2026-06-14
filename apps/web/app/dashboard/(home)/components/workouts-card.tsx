@@ -8,7 +8,7 @@ import { useHomeMetrics } from "@/components/time-range/context";
 import { BAR_MARGIN, WORKOUT_BAR_COLOR } from "@/lib/charts/data";
 import { WORKOUT_COUNT_SERIES } from "@/lib/charts/types";
 
-import { MetricCard } from "./metric";
+import { MetricCard } from "./metric-card";
 
 export const WorkoutsCard = () => {
   const { workoutBarData, workoutCount } = useHomeMetrics();

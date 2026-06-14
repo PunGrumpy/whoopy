@@ -1,14 +1,12 @@
 "use client";
 
-import { useMemo } from "react";
-
 import { InsightsList } from "@/components/analytics/insights-list";
 import { useWhoopData } from "@/components/time-range/context";
 import { buildHomeInsights } from "@/lib/insights";
 
 export const InsightsPanel = () => {
   const data = useWhoopData();
-  const insights = useMemo(() => buildHomeInsights(data), [data]);
+  const insights = buildHomeInsights(data);
 
   return (
     <aside className="lg:sticky lg:top-12 lg:self-start">

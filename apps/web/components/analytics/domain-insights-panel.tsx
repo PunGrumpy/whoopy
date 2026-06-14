@@ -9,7 +9,7 @@ import type { InsightCategory } from "@/lib/insights";
 import { InsightsList } from "./insights-list";
 
 interface DomainInsightsPanelProps {
-  readonly category: InsightCategory;
+  category: InsightCategory;
 }
 
 export const DomainInsightsPanel = ({ category }: DomainInsightsPanelProps) => {

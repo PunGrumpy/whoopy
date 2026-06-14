@@ -9,7 +9,7 @@ import { useHomeMetrics } from "@/components/time-range/context";
 import { CHART_BLUE, LINE_PROPS, TREND_MARGIN } from "@/lib/charts/data";
 import { CYCLE_SERIES } from "@/lib/charts/types";
 
-import { MetricCard } from "./metric";
+import { MetricCard } from "./metric-card";
 
 export const StrainTrendCard = () => {
   const { avgStrain, strainChart } = useHomeMetrics();

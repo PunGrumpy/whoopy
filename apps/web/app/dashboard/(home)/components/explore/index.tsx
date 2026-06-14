@@ -14,9 +14,7 @@ import {
 import { ExploreCard } from "./card";
 import type { ExploreCardProps } from "./card";
 
-type ExploreItem = ExploreCardProps;
-
-export const METRIC_EXPLORE_ITEMS: ExploreItem[] = [
+export const METRIC_EXPLORE_ITEMS: ExploreCardProps[] = [
   {
     description: "HRV, recovery score, and daily readiness",
     href: "/dashboard/recovery",
@@ -49,7 +47,7 @@ export const METRIC_EXPLORE_ITEMS: ExploreItem[] = [
   },
 ];
 
-export const HEALTH_EXPLORE_ITEMS: ExploreItem[] = [
+export const HEALTH_EXPLORE_ITEMS: ExploreCardProps[] = [
   {
     description: "Heart rate variability trends",
     href: "/dashboard/recovery",
@@ -83,8 +81,8 @@ export const HEALTH_EXPLORE_ITEMS: ExploreItem[] = [
 ];
 
 interface ExploreSectionProps {
-  readonly items: ExploreItem[];
-  readonly title: string;
+  items: ExploreCardProps[];
+  title: string;
 }
 
 export const ExploreSection = ({ items, title }: ExploreSectionProps) => (
