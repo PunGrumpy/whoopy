@@ -212,3 +212,9 @@ export const buildHomeInsights = (data: WhoopData): HomeInsight[] =>
     .filter((insight): insight is HomeInsight => insight !== null)
     .toSorted((a, b) => b.priority - a.priority)
     .slice(0, MAX_INSIGHTS);
+
+export const buildDomainInsights = (
+  data: WhoopData,
+  category: InsightCategory
+): HomeInsight[] =>
+  buildHomeInsights(data).filter((insight) => insight.category === category);
