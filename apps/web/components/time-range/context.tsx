@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 
 import {
@@ -9,7 +9,6 @@ import {
 } from "@/lib/charts/data";
 import type { HomeDashboardMetrics, TimeRange } from "@/lib/charts/data";
 import type { WhoopData } from "@/lib/charts/types";
-import { whoopData } from "@/lib/data";
 
 interface TimeRangeState {
   data: WhoopData;
@@ -31,11 +30,67 @@ const useTimeRangeState = (): TimeRangeState => {
 
 export const TimeRangeProvider = ({ children }: { children: ReactNode }) => {
   const [range, setRange] = useState<TimeRange>("7d");
-  const data = useMemo(() => filterWhoopDataByRange(whoopData, range), [range]);
-  const state = useMemo(() => ({ data, range, setRange }), [data, range]);
+  const [fullData, setFullData] = useState<WhoopData | null>(null);
+  const [fetchError, setFetchError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const res = await fetch("/api/whoop");
+        if (!res.ok) {
+          if (res.status === 401) {
+            window.location.href = "/";
+            return;
+          }
+          throw new Error("Failed to fetch WHOOP data");
+        }
+        setFullData(await res.json());
+      } catch (error: unknown) {
+        setFetchError(
+          error instanceof Error ? error.message : "Failed to load WHOOP data"
+        );
+      }
+    };
+
+    void loadData();
+  }, []);
+
+  const data = useMemo(
+    () => (fullData ? filterWhoopDataByRange(fullData, range) : null),
+    [fullData, range]
+  );
+
+  if (fetchError) {
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center gap-4 p-6 text-center">
+        <h2 className="text-xl font-semibold text-destructive">
+          Error Loading Data
+        </h2>
+        <p className="max-w-md text-sm text-muted-foreground">{fetchError}</p>
+        <button
+          className="rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          onClick={() => window.location.reload()}
+          type="button"
+        >
+          Retry
+        </button>
+      </div>
+    );
+  }
+
+  if (!data) {
+    return (
+      <div className="flex min-h-[50svh] flex-1 flex-col items-center justify-center gap-3">
+        <span className="size-10 animate-spin rounded-full border-4 border-muted border-t-foreground" />
+        <p className="text-sm text-muted-foreground">
+          Fetching your WHOOP data...
+        </p>
+      </div>
+    );
+  }
 
   return (
-    <TimeRangeContext.Provider value={state}>
+    <TimeRangeContext.Provider value={{ data, range, setRange }}>
       {children}
     </TimeRangeContext.Provider>
   );
