@@ -210,9 +210,9 @@ export const getSportsMixData = (
 
 const RANGE_DAYS: Record<TimeRange, number> = {
   "24h": 1,
-  "30d": 28,
+  "30d": 30,
   "7d": 7,
-  "90d": 28,
+  "90d": 90,
 };
 
 export const filterWhoopDataByRange = (
