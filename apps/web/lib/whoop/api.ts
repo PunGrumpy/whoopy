@@ -1,3 +1,4 @@
+import { env } from "@/env";
 import type {
   WhoopCycle,
   WhoopData,
@@ -6,14 +7,17 @@ import type {
   WhoopWorkout,
 } from "@/lib/charts/types";
 
+import { getRedirectUri } from "./config";
+
 const WHOOP_BASE_URL = "https://api.prod.whoop.com/developer/v2";
 
 export const getAuthorizeUrl = (state: string): string => {
-  const clientId = process.env.WHOOP_CLIENT_ID;
-  const redirectUri = process.env.WHOOP_REDIRECT_URI;
-  if (!clientId || !redirectUri) {
-    throw new Error("WHOOP_CLIENT_ID or WHOOP_REDIRECT_URI is not set");
+  const clientId = env.WHOOP_CLIENT_ID;
+  if (!clientId) {
+    throw new Error("WHOOP_CLIENT_ID is not set");
   }
+
+  const redirectUri = getRedirectUri();
 
   const scopes = [
     "offline",
@@ -37,12 +41,13 @@ export interface WhoopTokens {
 export const exchangeCodeForTokens = async (
   code: string
 ): Promise<WhoopTokens> => {
-  const clientId = process.env.WHOOP_CLIENT_ID;
-  const clientSecret = process.env.WHOOP_CLIENT_SECRET;
-  const redirectUri = process.env.WHOOP_REDIRECT_URI;
-  if (!clientId || !clientSecret || !redirectUri) {
+  const clientId = env.WHOOP_CLIENT_ID;
+  const clientSecret = env.WHOOP_CLIENT_SECRET;
+  if (!clientId || !clientSecret) {
     throw new Error("WHOOP credentials are not set");
   }
+
+  const redirectUri = getRedirectUri();
 
   const params = new URLSearchParams();
   params.append("client_id", clientId);
@@ -78,8 +83,8 @@ export const exchangeCodeForTokens = async (
 export const refreshTokens = async (
   refreshToken: string
 ): Promise<WhoopTokens> => {
-  const clientId = process.env.WHOOP_CLIENT_ID;
-  const clientSecret = process.env.WHOOP_CLIENT_SECRET;
+  const clientId = env.WHOOP_CLIENT_ID;
+  const clientSecret = env.WHOOP_CLIENT_SECRET;
   if (!clientId || !clientSecret) {
     throw new Error("WHOOP credentials are not set");
   }

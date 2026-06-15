@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { getSession, setSession } from "@/lib/session";
-import { fetchWhoopDataForRange, refreshTokens } from "@/lib/whoop-api";
+import { fetchWhoopDataForRange, refreshTokens } from "@/lib/whoop/api";
 
 export const GET = async (): Promise<Response> => {
   const session = await getSession();

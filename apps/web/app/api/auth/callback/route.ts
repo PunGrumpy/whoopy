@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 import { setSession } from "@/lib/session";
-import { exchangeCodeForTokens, fetchWhoopProfile } from "@/lib/whoop-api";
+import { exchangeCodeForTokens, fetchWhoopProfile } from "@/lib/whoop/api";
 
 export const GET = async (request: NextRequest): Promise<Response> => {
   const { searchParams } = request.nextUrl;
