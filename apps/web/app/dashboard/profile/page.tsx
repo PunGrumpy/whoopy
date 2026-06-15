@@ -46,6 +46,7 @@ const ProfilePage = async () => {
 
           <div className="mt-8 flex justify-end">
             <Button
+              nativeButton={false}
               render={<Link href="/api/auth/logout" />}
               className="rounded-full font-medium"
               variant="destructive"
