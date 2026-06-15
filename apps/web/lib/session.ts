@@ -1,5 +1,7 @@
 import { cookies } from "next/headers";
 
+import { env } from "@/env";
+
 const SESSION_COOKIE_NAME = "whoopy_session";
 
 export interface SessionPayload {
@@ -14,7 +16,6 @@ export interface SessionPayload {
   refreshToken: string;
 }
 
-// Helper to base64url decode
 const base64urlDecode = (str: string): string => {
   let base64 = str.replaceAll("-", "+").replaceAll("_", "/");
   while (base64.length % 4) {
@@ -23,7 +24,6 @@ const base64urlDecode = (str: string): string => {
   return atob(base64);
 };
 
-// Secret key import helper
 const getSigningKey = (secret: string): Promise<CryptoKey> => {
   const encoder = new TextEncoder();
   const keyData = encoder.encode(secret);
@@ -36,7 +36,6 @@ const getSigningKey = (secret: string): Promise<CryptoKey> => {
   );
 };
 
-// Generate JWT token
 export const encrypt = async (
   payload: unknown,
   secret: string
@@ -68,7 +67,6 @@ export const encrypt = async (
   return `${tokenInput}.${signatureBase64}`;
 };
 
-// Verify and decode JWT token
 export const decrypt = async (
   token: string,
   secret: string
@@ -114,12 +112,11 @@ export const decrypt = async (
 };
 
 export const setSession = async (payload: SessionPayload) => {
-  const secret = process.env.SESSION_SECRET;
+  const secret = env.SESSION_SECRET;
   if (!secret) {
     throw new Error("SESSION_SECRET is not set");
   }
 
-  // Session lasts 30 days
   const expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
   const token = await encrypt(payload, secret);
 
@@ -134,7 +131,7 @@ export const setSession = async (payload: SessionPayload) => {
 };
 
 export const getSession = async (): Promise<SessionPayload | null> => {
-  const secret = process.env.SESSION_SECRET;
+  const secret = env.SESSION_SECRET;
   if (!secret) {
     return null;
   }
