@@ -1,9 +1,15 @@
 import { NextResponse } from "next/server";
 
+import { createMockWhoopData } from "@/lib/mock-whoop-data";
+import { isScreenshotMode } from "@/lib/screenshot-mode";
 import { getSession, setSession } from "@/lib/session";
 import { fetchWhoopDataForRange, refreshTokens } from "@/lib/whoop/api";
 
 export const GET = async (): Promise<Response> => {
+  if (isScreenshotMode()) {
+    return NextResponse.json(createMockWhoopData());
+  }
+
   const session = await getSession();
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
