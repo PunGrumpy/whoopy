@@ -217,4 +217,8 @@ export const buildDomainInsights = (
   data: WhoopData,
   category: InsightCategory
 ): HomeInsight[] =>
-  buildHomeInsights(data).filter((insight) => insight.category === category);
+  INSIGHT_BUILDERS.map((build) => build(data))
+    .filter((insight): insight is HomeInsight => insight !== null)
+    .filter((insight) => insight.category === category)
+    .toSorted((a, b) => b.priority - a.priority)
+    .slice(0, MAX_INSIGHTS);
